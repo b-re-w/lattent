@@ -13,31 +13,30 @@ authors = [
 ]
 
 dependencies = [
-    "numpy~=1.26.0",
-    "matplotlib~=3.9.0",
+    "numpy>=1.26.0",
+    "matplotlib>=3.9.0",
     "tqdm>=4.65.0",
-    "transformers~=4.41.0",
+    "transformers>=4.41.0",
     "datasets>=2.14.0",
     "mlxu>=0.1.13",
     "einops>=0.6.0",
     "ml_collections>=0.1.1",
-    "scipy~=1.12.0",
-    "torch~=2.3.0"
+    "scipy>=1.12.0",
+    "torch>=2.3.0"
 ]
 
 [project.optional-dependencies]
 pytorch = [
 ]
 jax-tpu = [
-    "jax[tpu]~=0.4.14",
-    "flax~=0.7.0",
-    "optax~=0.1.7",
+    "jax[tpu]>=0.4.14",
+    "flax>=0.7.0",
+    "optax>=0.1.7",
 ]
 jax-cuda = [
-    "jax~=0.4.14",
-    "jaxlib==0.4.14+cuda12.cudnn89",
-    "flax~=0.7.0",
-    "optax~=0.1.7",
+    "jax>=0.4.14",
+    "flax>=0.7.0",
+    "optax>=0.1.7",
 ]
 
 [tool.hatch.build.targets.wheel]

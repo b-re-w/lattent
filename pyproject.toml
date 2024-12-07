@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lattent"
+version = "0.0.1"
+description = "Self-supervised Persistent Fast-weight Linear Attention Implementation (using Test-time Learning LM)"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "BERW", email = "irack000@gmail.com" },
+]
+
+dependencies = [
+    "numpy~=1.26.0",
+    "matplotlib~=3.9.0",
+    "tqdm>=4.65.0",
+    "transformers~=4.41.0",
+    "datasets>=2.14.0",
+    "mlxu>=0.1.13",
+    "einops>=0.6.0",
+    "ml_collections>=0.1.1",
+    "scipy~=1.12.0",
+    "torch~=2.3.0"
+]
+
+[project.optional-dependencies]
+pytorch = [
+]
+jax-tpu = [
+    "jax[tpu]~=0.4.14",
+    "flax~=0.7.0",
+    "optax~=0.1.7",
+]
+jax-cuda = [
+    "jax~=0.4.14",
+    "jaxlib~=0.4.14+cuda12.cudnn89",
+    "flax~=0.7.0",
+    "optax~=0.1.7",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lattent"]
+
+# Custom index URLs cannot be specified directly in pyproject.toml
+# Include these instructions in your README.md:
+#
+# Installation for TPU:
+# pip install lattent[jax-tpu] -f https://storage.googleapis.com/jax-releases/libtpu_releases.html --extra-index-url https://download.pytorch.org/whl/cpu
+#
+# Installation for CUDA:
+# pip install lattent[jax-cuda] -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html --extra-index-url https://download.pytorch.org/whl/cpu
+#
+# Installation for PyTorch:
+# pip install lattent[pytorch] --extra-index-url https://download.pytorch.org/whl/cpu --index-url https://download.pytorch.org/whl/cu124

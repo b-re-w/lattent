@@ -14,7 +14,7 @@ import numpy as np
 from absl import logging
 import optax
 
-from ttt.infra.jax_utils import float_to_dtype
+from .infra.jax_utils import float_to_dtype
 
 
 class OptimizerFactory(object):

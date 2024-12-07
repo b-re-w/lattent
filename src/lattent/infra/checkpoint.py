@@ -9,7 +9,7 @@ from flax.serialization import from_bytes, to_bytes, to_state_dict, from_state_d
 from flax.traverse_util import flatten_dict, unflatten_dict, empty_node
 import msgpack
 
-from ttt.infra.jax_utils import tree_apply, float_tensor_to_dtype
+from .infra.jax_utils import tree_apply, float_tensor_to_dtype
 
 
 class StreamingCheckpointer(object):

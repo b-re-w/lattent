@@ -13,8 +13,8 @@ from torch.utils.data.dataloader import DataLoader, Dataset
 from transformers import AutoTokenizer
 from datasets import load_dataset
 
-from ttt.dataloader.lm_dataset import RandomFaultTolerantSampler, LMDataset
-from ttt.infra.jax_utils import master_print
+from .dataloader.lm_dataset import RandomFaultTolerantSampler, LMDataset
+from .infra.jax_utils import master_print
 
 
 class LMDataModule:

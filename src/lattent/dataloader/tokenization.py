@@ -10,7 +10,7 @@ import torch
 
 import dotenv
 
-from ttt.dataloader.language_modeling_hf import LMDataModule
+from .dataloader.language_modeling_hf import LMDataModule
 
 # load environment variables from `.env` file if it exists
 # recursively searches for `.env` in all folders starting from work dir

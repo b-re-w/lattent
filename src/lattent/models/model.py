@@ -19,9 +19,9 @@ from transformers.modeling_flax_outputs import ModelOutput
 from ml_collections import ConfigDict
 from mlxu import function_args_to_config, load_pickle, open_file
 
-from ttt.models.bpt import blockwise_ffn, blockwise_attn
-from ttt.infra.jax_utils import with_sharding_constraint, get_jax_mesh, get_gradient_checkpoint_policy
-from ttt.models.ttt_layer import TTTLinear, TTTMLP, TTTLinearBase, TTTMLPBase, precompute_freqs_cis, apply_rotary_emb
+from .models.bpt import blockwise_ffn, blockwise_attn
+from .infra.jax_utils import with_sharding_constraint, get_jax_mesh, get_gradient_checkpoint_policy
+from .models.ttt_layer import TTTLinear, TTTMLP, TTTLinearBase, TTTMLPBase, precompute_freqs_cis, apply_rotary_emb
 
 
 @flax.struct.dataclass

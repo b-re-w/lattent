@@ -13,7 +13,7 @@ from jax.sharding import PartitionSpec as PS
 from flax import linen as nn
 from flax.linen import partitioning as nn_partitioning
 
-from ttt.infra.jax_utils import with_sharding_constraint, get_gradient_checkpoint_policy
+from .infra.jax_utils import with_sharding_constraint, get_gradient_checkpoint_policy
 
 Axes = Union[int, Sequence[int]]
 

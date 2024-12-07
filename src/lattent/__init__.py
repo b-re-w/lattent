@@ -7,63 +7,74 @@ from typing import Optional
 _FRAMEWORKS = ["pytorch", "jax"]
 
 
-def _get_installed_framework() -> Optional[str]:
+def _get_installed_frameworks() -> list[str]:
     """
-    Detects and returns the installed framework.
-    Currently, supports PyTorch and JAX.
+    Detects all installed frameworks.
+    Currently checks for PyTorch and JAX.
 
     Returns:
-        Optional[str]: Name of the detected framework or None
+        list[str]: List of installed framework names
     """
-    # Check for PyTorch
+    installed = []
+
     try:
         import torch
-        return "pytorch"
+        installed.append("pytorch")
     except ImportError:
         pass
 
-    # Check for JAX
     try:
         import jax
-        return "jax"
+        installed.append("jax")
     except ImportError:
         pass
 
-    return None
+    return installed
 
 
-def _import_framework_module(framework: str):
+def _select_framework(installed_frameworks: list[str]) -> Optional[str]:
     """
-    Imports the appropriate module for the given framework.
+    Selects which framework to use based on environment variable or availability.
 
     Args:
-        framework (str): Name of the framework ("pytorch" or "jax")
+        installed_frameworks: List of installed framework names
+
+    Returns:
+        Optional[str]: Selected framework name or None if no framework is available
     """
-    if framework not in _FRAMEWORKS:
-        raise ValueError(f"Unsupported framework: {framework}. Supported frameworks: {_FRAMEWORKS}")
+    if not installed_frameworks:
+        return None
 
-    # Check if framework preference is set in environment variables
-    env_framework = os.getenv("PREFERRED_FRAMEWORK")
-    if env_framework and env_framework.lower() != framework:
-        print(f"Warning: Mismatch between environment variable framework ({env_framework}) "
-              f"and detected framework ({framework}). Using detected framework.")
+    # Check environment variable
+    preferred = os.environ.get("LATTENT_FRAMEWORK", "").lower()
+    if preferred and preferred in installed_frameworks:
+        return preferred
 
-    # Import framework-specific modules
-    if framework == "pytorch":
-        from .models.ttt_pytorch import *
-    elif framework == "jax":
-        from .models.ttt_layer import *
-        from .models.model import *
+    # Default to the first installed framework
+    return installed_frameworks[0]
 
 
-# Detect framework and import modules
-_framework = _get_installed_framework()
-if _framework is None:
+# Detect installed frameworks
+_installed_frameworks = _get_installed_frameworks()
+if not _installed_frameworks:
     raise ImportError(
         "No supported framework found. "
         "Please install either PyTorch or JAX."
     )
 
-_import_framework_module(_framework)
+# Select framework
+_framework = _select_framework(_installed_frameworks)
+
+# If multiple frameworks are installed, inform the user about the selection
+if len(_installed_frameworks) > 1:
+    print(f"Multiple frameworks detected {_installed_frameworks}. "
+        + f"Using {_framework}. "
+        + f"Set LATTENT_FRAMEWORK environment variable to override.")
+
+# Import framework-specific modules
+if _framework == "pytorch":
+    from .pytorch import *
+elif _framework == "jax":
+    from .jax import *
 
 __version__ = "0.0.1"
